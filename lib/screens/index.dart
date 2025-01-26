@@ -15,13 +15,15 @@ class ThickFrame extends StatelessWidget {
       builder: (context, constraints) {
         double width = constraints.maxWidth;
         double height = constraints.maxHeight;
+        bool isMobile =
+            width < 600; // Consider screen width less than 600 as mobile
 
         return Stack(
           children: [
             Container(
               width: width,
               height: height,
-              color: Colors.black,
+              color: Color(0xFF1F1D2B),
             ),
             Positioned(
               left: frameThickness,
@@ -29,28 +31,30 @@ class ThickFrame extends StatelessWidget {
               right: frameThickness,
               bottom: frameThickness,
               child: Container(
-                color: Colors.white,
+                color: Color(0xFF1F1D2B),
                 padding: EdgeInsets.all(innerPadding),
                 child: child,
               ),
             ),
+            //izquierda media
             Positioned(
               left: 0,
               top: frameThickness,
               bottom: frameThickness,
               child: Container(
                 width: frameThickness,
-                color: Colors.red, // Color del marco izquierdo
+                color: Color(0xFF1F1D2B),
                 child: Center(child: Text('Left Widget')),
               ),
             ),
+            //derecha medio
             Positioned(
               right: 0,
               top: frameThickness,
               bottom: frameThickness,
               child: Container(
                 width: frameThickness,
-                color: Colors.green, // Color del marco derecho
+                color: Color(0xFF1F1D2B),
                 child: Center(child: Text('Right Widget')),
               ),
             ),
@@ -60,56 +64,41 @@ class ThickFrame extends StatelessWidget {
               bottom: 0,
               child: Container(
                 height: frameThickness,
-                color: Colors.blue, // Color del marco inferior
+                color: Color(0xFF1F1D2B),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Colors.orange,
-                        child: Center(child: Text('Left Bottom Widget')),
-                      ),
-                    ),
-                    Expanded(
+                    if (isMobile)
+                      Expanded(
+                        child: InputPrompt(
+                          controller: TextEditingController(),
+                          onSubmitted: (value) => print(value),
+                        ),
+                      )
+                    else
+                      Expanded(
                         flex: 2,
                         child: InputPrompt(
-                            controller: TextEditingController(),
-                            onSubmitted: (value) => print(value))),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Colors.purple,
-                        child: Center(child: Text('Right Bottom Widget')),
+                          controller: TextEditingController(),
+                          onSubmitted: (value) => print(value),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
             ),
+            if (isMobile)
+              Positioned(
+                right: 10,
+                bottom: 10,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.yellow,
+                ),
+              ),
           ],
         );
       },
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(title: Text('Thick Frame Example')),
-      body: Center(
-        child: ThickFrame(
-          child: Container(
-            color: Colors.yellow,
-            child: Center(
-              child: Text(
-                'Content Here',
-                style: TextStyle(color: Colors.black, fontSize: 24),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-  ));
 }

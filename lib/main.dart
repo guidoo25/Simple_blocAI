@@ -1,4 +1,9 @@
+import 'package:cloudinary_midu/screens/gamecomponents/joystic.dart';
+import 'package:cloudinary_midu/screens/gamecomponents/scena.dart';
 import 'package:cloudinary_midu/screens/index.dart';
+import 'package:cloudinary_midu/screens/menu/menu.dart';
+import 'package:cloudinary_midu/screens/onboard.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,9 +23,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: ThickFrame(
-        child: Container(
-          color: Colors.blue,
-        ),
+        child: ImageSwiperScreen(),
+        // child: GameWidget(
+        //   game: GameScene(),
+        // ),
       ),
     );
   }

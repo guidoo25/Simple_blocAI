@@ -13,6 +13,10 @@ class InputPrompt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double buttonWidth =
+        MediaQuery.of(context).size.width * 0.2; // 20% of screen width
+    final double buttonHeight = 48.0; // Set a fixed height for the button
+
     return Scaffold(
       backgroundColor: Color(0xFF1F1D2B), // Dark background color
       body: Padding(
@@ -23,6 +27,7 @@ class InputPrompt extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
+                    flex: 4,
                     child: TextField(
                       controller: controller,
                       style: TextStyle(color: Colors.white), // White text
@@ -45,12 +50,18 @@ class InputPrompt extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 16),
-                  DripButton(
-                    riveAssetPath: 'assets/headerslime.riv',
-                    text: "Enviar",
-                    onPressed: () {
-                      onSubmitted(controller.text);
-                    },
+                  Container(
+                    width: 100,
+                    height: buttonHeight,
+                    child: DripButton(
+                      height: buttonHeight,
+                      width: buttonWidth,
+                      riveAssetPath: 'assets/headerslime.riv',
+                      text: "Enviar",
+                      onPressed: () {
+                        onSubmitted(controller.text);
+                      },
+                    ),
                   ),
                 ],
               ),

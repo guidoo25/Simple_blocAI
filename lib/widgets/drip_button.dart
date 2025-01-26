@@ -7,6 +7,8 @@ class DripButton extends StatefulWidget {
   final Color color;
   final Color textColor;
   final String riveAssetPath;
+  final double? width;
+  final double? height;
 
   const DripButton({
     Key? key,
@@ -15,6 +17,8 @@ class DripButton extends StatefulWidget {
     required this.riveAssetPath,
     this.color = const Color(0xFF4CAF50),
     this.textColor = Colors.white,
+    this.width,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -39,8 +43,8 @@ class _DripButtonState extends State<DripButton> {
           alignment: Alignment.center,
           children: [
             SizedBox(
-              width: 150,
-              height: 200,
+              width: widget.width,
+              height: widget.height,
               child: RiveAnimation.asset(
                 widget.riveAssetPath,
                 fit: BoxFit.cover,

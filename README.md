@@ -14,3 +14,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+PROPMP IMAGENES 
+RPG card template, fantasy, magic, heroic, gold, jewels, magic the gathering, 80 % text field, 20 % picture , dungeons and dragons, playing card
+
+furry creature
