@@ -3,7 +3,7 @@ import 'package:rive/rive.dart';
 
 class DripButton extends StatefulWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color color;
   final Color textColor;
   final String riveAssetPath;

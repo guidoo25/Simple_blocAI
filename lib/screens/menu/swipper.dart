@@ -1,50 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:swipe_deck/swipe_deck.dart';
+import 'dart:math';
 
-class Swipercard extends StatelessWidget {
-  final IMAGES = ["card", "card", "card"];
-  final borderRadius = BorderRadius.circular(20.0);
+class CircularSwiper extends StatefulWidget {
+  final List<String> images;
+  final Function(int) onChange;
 
-  Swipercard({Key? key}) : super(key: key);
+  CircularSwiper({required this.images, required this.onChange});
+
+  @override
+  _CircularSwiperState createState() => _CircularSwiperState();
+}
+
+class _CircularSwiperState extends State<CircularSwiper> {
+  late PageController _pageController;
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _currentPage);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: SizedBox(
-      height: double.infinity,
-      width: double.infinity,
-      child: Center(
-        child: SwipeDeck(
-          aspectRatio: 9 / 4,
-          startIndex: 0,
-          emptyIndicator: const Center(
-            child: Text("Nothing Here"),
-          ),
-          cardSpreadInDegrees: 5, // Change the Spread of Background Cards
-          onSwipeLeft: () {
-            print("USER SWIPED LEFT -> GOING TO NEXT WIDGET");
+      child: Container(
+        height: 300,
+        child: PageView.builder(
+          controller: _pageController,
+          onPageChanged: (int index) {
+            setState(() {
+              _currentPage = index % widget.images.length;
+              widget.onChange(_currentPage);
+            });
           },
-          onSwipeRight: () {
-            print("USER SWIPED RIGHT -> GOING TO PREVIOUS WIDGET");
+          itemBuilder: (context, index) {
+            final imageIndex = index % widget.images.length;
+            final angle = (index - _currentPage) * 0.1;
+            final scale = max(0.8, 1 - (index - _currentPage).abs() * 0.1);
+            return Transform(
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateY(angle)
+                ..scale(scale),
+              child: GestureDetector(
+                onTap: () {
+                  print(widget.images[imageIndex]);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.network(
+                    widget.images[imageIndex],
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            );
           },
-          onChange: (index) {
-            print(IMAGES[index]);
-          },
-          widgets: IMAGES
-              .map((e) => GestureDetector(
-                    onTap: () {
-                      print(e);
-                    },
-                    child: ClipRRect(
-                        borderRadius: borderRadius,
-                        child: Image.asset(
-                          "assets/images/$e.png",
-                          fit: BoxFit.contain,
-                        )),
-                  ))
-              .toList(),
         ),
       ),
-    ));
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

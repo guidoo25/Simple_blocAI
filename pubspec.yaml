@@ -28,17 +28,16 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  cloudinary_api: ^1.0.2
-  cloudinary_url_gen: ^1.6.0
+
   cupertino_icons: ^1.0.6
-  flame: ^1.17.0
-  flame_rive: ^1.6.0
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.5.1
+  flutter_bloc: 
   flutter_svg: ^2.0.10+1
   rive: ^0.12.4
   swipe_deck: ^1.1.0
+  equatable:
+  shared_preferences:
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -70,6 +69,7 @@ flutter:
     - assets/images/back.png
     - assets/slime.riv
     - assets/headerslime.riv
+    - assets/spycugly.riv
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

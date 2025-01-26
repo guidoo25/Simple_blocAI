@@ -1,13 +1,19 @@
-import 'package:cloudinary_midu/screens/gamecomponents/joystic.dart';
-import 'package:cloudinary_midu/screens/gamecomponents/scena.dart';
-import 'package:cloudinary_midu/screens/index.dart';
+import 'package:cloudinary_midu/providers/animation_rive/cubit/animation_cubit.dart';
+import 'package:cloudinary_midu/providers/bloc/image_prompt_bloc.dart';
 import 'package:cloudinary_midu/screens/menu/menu.dart';
-import 'package:cloudinary_midu/screens/onboard.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ImagePromptBloc()),
+        BlocProvider(create: (_) => AnimationCubit()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,22 +23,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ThickFrame(
-        child: ImageSwiperScreen(),
-        // child: GameWidget(
-        //   game: GameScene(),
-        // ),
-      ),
+      home: ImageSwiperScreen(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
