@@ -94,7 +94,7 @@ class _CircularSwiperWithRiveState extends State<CircularSwiperWithRive> {
                     height: MediaQuery.of(context).size.height,
                     child: RiveAnimation.asset(
                       stateMachines: [],
-                      'assets/spycugly.riv', // Background Rive file
+                      'assets/spycugly.riv',
                       controllers: [_riveController],
                       fit: BoxFit.cover,
                       onInit: (_) => print("Rive animation initialized"),
